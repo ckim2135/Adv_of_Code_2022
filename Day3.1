@@ -1,0 +1,39 @@
+file = open("Day3.txt","r")
+text = file.read()
+rucksacks = text.split("\n")
+
+#variables and dictionaries
+alph_string = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+dictionary = {}
+
+for char in alph_string:
+    dictionary[char]=(alph_string.index(char)+1)
+
+
+#functions
+
+def comp1 (string):
+    return(string[0:(len(string)//2)])
+
+def comp2 (string):
+    return (string[(len(string)//2):])
+
+def check_comp(sack):
+    s1 = comp1(sack)
+    s2 = comp2(sack)
+    sack_tot = 0
+    for akey in dictionary:
+        if akey in s1 and akey in s2:
+            sack_tot += dictionary[akey]
+    return (sack_tot)
+
+all_sacks_sum = 0
+
+for sack in rucksacks:
+    sack_tot = check_comp(sack)
+    all_sacks_sum += sack_tot
+
+
+print (all_sacks_sum)
+
+file.close()
