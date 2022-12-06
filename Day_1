@@ -1,0 +1,27 @@
+file = open("Day1.txt", "r")
+text = file.readlines()
+
+curr_count = 0
+curr_one = 0
+curr_two = 0
+curr_three = 0
+
+new_list = []
+
+for line in text:
+    new_list.append(str(line[0:-1]))
+
+for item in new_list:
+    if item == "":
+        if curr_count > curr_one:
+            curr_three = curr_two
+            curr_two = curr_one
+            curr_one = curr_count
+        curr_count = 0
+    else: 
+        curr_count += int(item)            
+
+print(curr_one)
+print(curr_one+curr_two+curr_three)
+
+file.close()
