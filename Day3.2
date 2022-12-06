@@ -1,0 +1,37 @@
+file = open("Day3.txt","r")
+text = file.read()
+elves = text.split("\n")
+
+#variables and dictionaries
+alph_string = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+dictionary = {}
+
+for char in alph_string:
+    dictionary[char]=(alph_string.index(char)+1)
+
+#chunk out groups
+groups = []
+
+for i in range(0,len(elves),3):
+    groups.append(elves[i:i+3])
+
+
+#check sacks
+def group_badge(group):
+    badge = 0
+    for akey in dictionary:
+        if akey in group[0] and akey in group[1] and akey in group[2]:
+            badge += dictionary[akey]
+    return badge        
+
+#loop all groups
+
+badge_total = 0
+
+for group in groups:
+    badge_total += group_badge(group)
+
+print(badge_total)    
+
+
+file.close()
