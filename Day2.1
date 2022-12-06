@@ -1,0 +1,66 @@
+file = open("Day2.txt","r")
+text = file.readlines()
+
+list = []
+
+for line in text:
+    P1, P2 = line[0], line[2]
+    list.append((P1, P2))
+
+print(list)
+
+# dictionaries
+moves = {"A":"rock", "B":"paper","C":"scissors","X":"rock","Y":"paper","Z":"scissors"}
+mov_val = {"rock":1,"paper":2,"scissors":3,"A":1,"B":2,"C":3,"X":1,"Y":2,"Z":3}
+out_val_1 = {"draw":3, "play_1": 6, "play_2":0}
+out_val_2 = {"draw":3, "play_1": 0, "play_2":6}
+ 
+# functions
+def outcome (m1, m2):
+    if (m1 == "A" and m2 == "X") or (m1 == "B" and m2 == "Y") or (m1 == "C" and m2 == "Z"):
+        return "draw"
+    elif (m1 == "A" and m2 != "Y")  or (m1 == "B" and m2 != "Z") or (m1 == "C" and m2 != "X"):
+        return "play_1"
+    else:
+        return "play_2"
+
+
+# round_score = mov_val + out_val 
+def round_score (m1, m2):
+    p1_rnd = 0
+    p2_rnd = 0
+    if outcome(m1, m2) == "draw":
+        p1_rnd += 3
+        p2_rnd += 3
+    elif outcome (m1, m2) == "play_1":
+        p1_rnd += 6
+    else:
+        p2_rnd += 6
+    p1_rnd += mov_val[m1]
+    p2_rnd += mov_val[m2]
+
+    return (p1_rnd, p2_rnd)           
+
+rounds = list
+p1_scores = []
+p2_scores = []
+
+for m1, m2 in rounds:
+    scores = round_score (m1, m2)
+    p1_scores.append(scores[0])
+    p2_scores.append(scores[1])
+
+print(p1_scores)
+print(p2_scores)
+
+p1_total = 0
+p2_total = 0
+
+for item in p1_scores:
+    p1_total += item
+
+for item in p2_scores:
+    p2_total += item
+
+print (p1_total)
+print (p2_total)        
